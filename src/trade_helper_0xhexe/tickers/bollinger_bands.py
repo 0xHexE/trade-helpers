@@ -1,6 +1,6 @@
 import numpy as np
 
-from trade_helper.tickers.strategy_ticker import StrategyTicker
+from src.trade_helper_0xhexe.tickers.strategy_ticker import StrategyTicker
 
 
 class BollingerBands(StrategyTicker):

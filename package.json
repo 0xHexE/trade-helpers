@@ -2,6 +2,10 @@
   "name": "trade_helpers",
   "scripts": {
     "format": "python -m black .",
-    "test": "python setup.py pytest"
+    "test": "python setup.py pytest",
+    "build": "rm -rf dist && python3 -m build",
+    "bump": "bumpver update",
+    "deploy:dev": "python3 -m twine upload --repository testpypi dist/*",
+    "deploy:prod": "python3 -m twine upload dist/*"
   }
 }

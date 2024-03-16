@@ -1,5 +1,4 @@
-from trade_helper.tickers.strategy_ticker import StrategyTicker
-from trade_helper.type.tick_data import TickData
+from src.trade_helper_0xhexe.tickers.strategy_ticker import StrategyTicker
 
 
 class HeikinAshi(StrategyTicker):

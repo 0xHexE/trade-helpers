@@ -1,6 +1,6 @@
 import json
 
-from trade_helper.providers.provider import Provider
+from src.trade_helper_0xhexe.providers.provider import Provider
 import requests
 
 

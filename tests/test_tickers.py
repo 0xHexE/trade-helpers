@@ -1,11 +1,8 @@
 from datetime import datetime
 
-import numpy as np
-
-from trade_helper.tickers.bollinger_bands import BollingerBands
-from trade_helper.tickers.heikin_ashi import HeikinAshi
-from trade_helper.tickers.strategy_ticker import StrategyTicker
-from trade_helper.type.tick_data import TickData
+from src.trade_helper_0xhexe.tickers.heikin_ashi import HeikinAshi
+from src.trade_helper_0xhexe.tickers.strategy_ticker import StrategyTicker
+from src.trade_helper_0xhexe.type.tick_data import TickData
 
 
 def test_tickers():
@@ -13,12 +10,18 @@ def test_tickers():
 
     tick = TickData(low=100, high=200, _open=150, close=180, time=1710474320, volume=1)
     ticker.tick(tick)
+
     assert ticker.low == 100
     assert len(ticker.tick_data) == 1
     assert len(ticker.processed) == 0
 
     tick = TickData(low=100, high=200, _open=150, close=180, time=1710474516)
     ticker.tick(tick)
+
+    assert ticker.iloc[0]["low"] == 100
+    assert ticker.iloc[0]["high"] == 200
+    assert ticker.iloc[0]["open"] == 150
+    assert ticker.iloc[0]["close"] == 180
 
     assert len(ticker.tick_data) == 1
     assert len(ticker.processed) == 1
@@ -28,6 +31,13 @@ def test_tickers():
 
     assert len(ticker.tick_data) == 2
     assert len(ticker.processed) == 1
+
+    ticker.finalize()
+
+    assert ticker.iloc[0]["low"] == 100
+    assert ticker.iloc[0]["high"] == 260
+    assert ticker.iloc[0]["open"] == 150
+    assert ticker.iloc[0]["close"] == 120
 
     tick = TickData(low=100, high=200, _open=150, close=120, time=1710474617)
     ticker.tick(tick)

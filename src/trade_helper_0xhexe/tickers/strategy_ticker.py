@@ -1,4 +1,4 @@
-from trade_helper.type.tick_data import TickData
+from src.trade_helper_0xhexe.type.tick_data import TickData
 
 
 class StrategyTicker:
@@ -32,7 +32,7 @@ class StrategyTicker:
             self.volume = tick.volume
             self.tick_data.append(tick)
             self.finalized = False
-            return
+            return False
 
         first_entry_time = self.tick_data[0].time
         last_entry_time = tick.time
@@ -42,7 +42,7 @@ class StrategyTicker:
         if time_diff >= self.timedelta:
             self.finalize()
             self.tick(tick)
-            return
+            return True
 
         self.low = min(self.low, tick.low)
         self.high = max(self.high, tick.high)
@@ -50,6 +50,8 @@ class StrategyTicker:
         self.volume += tick.volume
 
         self.tick_data.append(tick)
+
+        return False
 
     def finalize(self):
         if self.finalized:
@@ -65,3 +67,25 @@ class StrategyTicker:
         self.high = float("-inf")
         self.open = None
         self.close = None
+
+    def __getitem__(self, index):
+        if isinstance(index, str) and index == "iloc":
+            return self.iloc
+        raise IndexError("Invalid index")
+
+    @property
+    def iloc(self):
+        class Iloc:
+            def __init__(self, processed):
+                self.processed = processed
+
+            def __getitem__(self, index):
+                if index >= 0:
+                    if index < len(self.processed):
+                        return self.processed[len(self.processed) - 1 - index]
+                    else:
+                        raise IndexError("Index out of range")
+                else:
+                    return self.processed[index]
+
+        return Iloc(self.processed)

@@ -1,4 +1,4 @@
-from trade_helper.providers.upstox import Upstox
+from src.trade_helper_0xhexe import Upstox
 
 
 def test_provider():

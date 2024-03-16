@@ -5,3 +5,4 @@ build
 .yarn/install-state.gz
 .yarn/cache
 .idea
+trade_helpers.egg-info
