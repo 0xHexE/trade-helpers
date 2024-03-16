@@ -1,0 +1,7 @@
+{
+  "name": "trade_helpers",
+  "scripts": {
+    "format": "python -m black .",
+    "test": "python setup.py pytest"
+  }
+}

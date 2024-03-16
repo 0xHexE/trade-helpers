@@ -1,0 +1,7 @@
+.venv
+trade_helper.egg-info
+dist
+build
+.yarn/install-state.gz
+.yarn/cache
+.idea
