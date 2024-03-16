@@ -69,23 +69,11 @@ class StrategyTicker:
         self.close = None
 
     def __getitem__(self, index):
-        if isinstance(index, str) and index == "iloc":
-            return self.iloc
-        raise IndexError("Invalid index")
+        if index >= 0:
+            if index < len(self.processed):
+                return self.processed[len(self.processed) - 1 - index]
+            else:
+                raise IndexError("Index out of range")
+        else:
+            return self.processed[index]
 
-    @property
-    def iloc(self):
-        class Iloc:
-            def __init__(self, processed):
-                self.processed = processed
-
-            def __getitem__(self, index):
-                if index >= 0:
-                    if index < len(self.processed):
-                        return self.processed[len(self.processed) - 1 - index]
-                    else:
-                        raise IndexError("Index out of range")
-                else:
-                    return self.processed[index]
-
-        return Iloc(self.processed)

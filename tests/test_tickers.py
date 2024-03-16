@@ -18,10 +18,10 @@ def test_tickers():
     tick = TickData(low=100, high=200, _open=150, close=180, time=1710474516)
     ticker.tick(tick)
 
-    assert ticker.iloc[0]["low"] == 100
-    assert ticker.iloc[0]["high"] == 200
-    assert ticker.iloc[0]["open"] == 150
-    assert ticker.iloc[0]["close"] == 180
+    assert ticker[0]["low"] == 100
+    assert ticker[0]["high"] == 200
+    assert ticker[0]["open"] == 150
+    assert ticker[0]["close"] == 180
 
     assert len(ticker.tick_data) == 1
     assert len(ticker.processed) == 1
@@ -34,10 +34,15 @@ def test_tickers():
 
     ticker.finalize()
 
-    assert ticker.iloc[0]["low"] == 100
-    assert ticker.iloc[0]["high"] == 260
-    assert ticker.iloc[0]["open"] == 150
-    assert ticker.iloc[0]["close"] == 120
+    assert ticker[1]["low"] == 100
+    assert ticker[1]["high"] == 200
+    assert ticker[1]["open"] == 150
+    assert ticker[1]["close"] == 180
+
+    assert ticker[0]["low"] == 100
+    assert ticker[0]["high"] == 260
+    assert ticker[0]["open"] == 150
+    assert ticker[0]["close"] == 120
 
     tick = TickData(low=100, high=200, _open=150, close=120, time=1710474617)
     ticker.tick(tick)
